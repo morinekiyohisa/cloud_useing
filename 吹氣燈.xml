@@ -1,5 +1,5 @@
 <xml xmlns="http://www.w3.org/1999/xhtml">
-  <block type="arduino_setup" id="W!/Wk#2F.MgRYlI3pd?O" x="735" y="22">
+  <block type="arduino_setup" id="W!/Wk#2F.MgRYlI3pd?O" x="165" y="80">
     <statement name="SETUP_FUNC">
       <block type="io_digitalwrite_var" id="Tf86V*/+p[nOY[?gfX{:">
         <value name="PIN">
@@ -26,6 +26,41 @@
                 <value name="VALUE">
                   <block type="time_millis" id="wh,?DYv)[lh{Ns%*Af^:"></block>
                 </value>
+                <next>
+                  <block type="esp8266_sta_setup" id="?LU4ncorw10;(F(F1Aw`">
+                    <value name="SSID">
+                      <block type="text" id=":u_M).e}du,b)J^cY_LE">
+                        <field name="TEXT">turtle-dlink</field>
+                      </block>
+                    </value>
+                    <value name="PINCODE">
+                      <block type="text" id="dIES/%ozkx@*+Y]Qc#VL">
+                        <field name="TEXT"></field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="controls_whileUntil" id="^=kNh`[%1r*}wj,CaWVq">
+                        <field name="MODE">WHILE</field>
+                        <value name="BOOL">
+                          <block type="logic_negate" id="44+z,S6/Yvgaoo5tSXl}">
+                            <value name="BOOL">
+                              <block type="esp8266_connected" id="1LM@uuGnS6;qH,nilzc%"></block>
+                            </value>
+                          </block>
+                        </value>
+                        <statement name="DO">
+                          <block type="time_delay" id="@H,:7:(GAW}%n3/F3]V{">
+                            <value name="DELAY_TIME_MILI">
+                              <block type="math_number" id="BFr6OxSBItO6N}j2HoE{">
+                                <field name="NUM">1000</field>
+                              </block>
+                            </value>
+                          </block>
+                        </statement>
+                      </block>
+                    </next>
+                  </block>
+                </next>
               </block>
             </next>
           </block>
@@ -33,7 +68,7 @@
       </block>
     </statement>
   </block>
-  <block type="arduino_loop" id="EAg)g_/#Sgta~QPPg4@7" deletable="false" x="308" y="133">
+  <block type="arduino_loop" id="EAg)g_/#Sgta~QPPg4@7" deletable="false" x="715" y="89">
     <statement name="LOOP_FUNC">
       <block type="controls_if" id=":@@(eLez0]qwqhn[~eXG">
         <mutation else="1"></mutation>
@@ -112,7 +147,7 @@
                         </value>
                         <value name="B">
                           <block type="math_number" id="N2o3}0fgH@Ti42(xh#+}">
-                            <field name="NUM">4</field>
+                            <field name="NUM">30</field>
                           </block>
                         </value>
                       </block>
@@ -129,6 +164,19 @@
                             <field name="STATE">HIGH</field>
                           </block>
                         </value>
+                        <next>
+                          <block type="controls_waitUntil" id="rx!Hl:~r8tJu{p_3MSNn">
+                            <value name="BOOL">
+                              <block type="esp8266_http_get" id="ik}~j2WKG0[Yo+Bd/G^Z">
+                                <value name="URL">
+                                  <block type="text" id="a*0baPQ;~::Jif*@-oF3">
+                                    <field name="TEXT">https://maker.ifttt.com/trigger/got_sound/with/key/cKGVC79IPVPosupDVZPPZl</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                          </block>
+                        </next>
                       </block>
                     </statement>
                   </block>
